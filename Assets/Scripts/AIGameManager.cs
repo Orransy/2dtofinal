@@ -2,10 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class AIGameManager : MonoBehaviour
 {
     public static AIGameManager Instance;
+
+    [Header("NPC")]
+    public HelperNPC helperNPC;
+    public SabotageNPC sabotageNPC;
+
+    [Header("NPC Settings")]
+    public bool helperGivesPlayerTurn = true;
 
     [Header("Card Setup")]
     public Card cardPrefab;
@@ -35,6 +43,9 @@ public class AIGameManager : MonoBehaviour
     private int playerScore = 0;
     private int aiScore = 0;
     private int matchedPairs = 0;
+    private int consecutivePlayerMisses = 0;
+
+    private bool sabotageTriggered = false;
 
     private enum Turn
     {
@@ -180,6 +191,7 @@ public class AIGameManager : MonoBehaviour
             // Hai card này đã ghép rồi
             RemoveFromMemory(firstCard);
             RemoveFromMemory(secondCard);
+            yield return StartCoroutine(CheckSabotage());
 
             firstCard = null;
             secondCard = null;
@@ -208,8 +220,18 @@ public class AIGameManager : MonoBehaviour
 
             Debug.Log("PLAYER WRONG!");
 
+            consecutivePlayerMisses++;
+
+            Debug.Log(
+                "PLAYER WRONG! Consecutive misses = " +
+                consecutivePlayerMisses
+            );
+
             firstCard = null;
             secondCard = null;
+
+            // Không gọi Helper ở đây.
+            // Player phải chuyển sang AI trước.
 
             isChecking = false;
 
@@ -232,20 +254,17 @@ public class AIGameManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-
         // =====================================
         // AI CHỌN CARD ĐẦU TIÊN
         // =====================================
 
         Card aiFirstCard = GetBestFirstCard();
 
-
         if (aiFirstCard == null)
         {
             isChecking = false;
             yield break;
         }
-
 
         aiFirstCard.ShowFront();
 
@@ -254,13 +273,11 @@ public class AIGameManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.7f);
 
-
         // =====================================
         // AI CHỌN CARD THỨ HAI
         // =====================================
 
         Card aiSecondCard = GetBestSecondCard(aiFirstCard);
-
 
         if (aiSecondCard == null)
         {
@@ -274,14 +291,12 @@ public class AIGameManager : MonoBehaviour
             yield break;
         }
 
-
         aiSecondCard.ShowFront();
 
         // AI nhớ card này
         RememberCard(aiSecondCard);
 
         yield return new WaitForSeconds(0.7f);
-
 
         // =====================================
         // AI ĐÚNG
@@ -302,8 +317,9 @@ public class AIGameManager : MonoBehaviour
             RemoveFromMemory(aiFirstCard);
             RemoveFromMemory(aiSecondCard);
 
-            isChecking = false;
+            yield return StartCoroutine(CheckSabotage());
 
+            isChecking = false;
 
             if (matchedPairs >= pairCount)
             {
@@ -311,14 +327,12 @@ public class AIGameManager : MonoBehaviour
                 yield break;
             }
 
-
             // Đúng → AI được chơi tiếp
             currentTurn = Turn.AI;
             turnText.text = "AI TURN";
 
             StartCoroutine(AITurn());
         }
-
 
         // =====================================
         // AI SAI
@@ -331,14 +345,52 @@ public class AIGameManager : MonoBehaviour
 
             Debug.Log("AI WRONG!");
 
-            isChecking = false;
-
-            // Sai → Player
-            currentTurn = Turn.Player;
-            turnText.text = "YOUR TURN";
+            // AI đã hoàn thành lượt.
+            // Chỉ tại đây mới kiểm tra Helper.
+            yield return StartCoroutine(FinishAITurn());
         }
     }
 
+    // =========================================
+    // FINISH AI TURN
+    // =========================================
+
+    private IEnumerator FinishAITurn()
+    {
+        isChecking = true;
+
+        // Helper chỉ xuất hiện sau khi AI đi xong
+        // và Player đã sai liên tiếp ít nhất 3 lần.
+        if (consecutivePlayerMisses >= 3)
+        {
+            Debug.Log(
+                "HELPER NPC: Player missed " +
+                consecutivePlayerMisses +
+                " times. Hint after AI turn."
+            );
+
+            if (helperNPC != null)
+            {
+                yield return StartCoroutine(
+                    helperNPC.GiveHint(cards)
+                );
+
+                // Helper đã dùng lượt gợi ý.
+                consecutivePlayerMisses = 0;
+            }
+            else
+            {
+                Debug.LogWarning(
+                    "HelperNPC is not assigned in AIGameManager."
+                );
+            }
+        }
+
+        // Sau khi Helper rung xong mới trả lượt cho Player.
+        currentTurn = Turn.Player;
+        turnText.text = "YOUR TURN";
+        isChecking = false;
+    }
 
     // =========================================
     // AI MEMORY
@@ -366,7 +418,6 @@ public class AIGameManager : MonoBehaviour
         }
     }
 
-
     // =========================================
     // XÓA CARD ĐÃ MATCH KHỎI MEMORY
     // =========================================
@@ -376,20 +427,16 @@ public class AIGameManager : MonoBehaviour
         if (card == null)
             return;
 
-
         if (!aiMemory.ContainsKey(card.cardId))
             return;
 
-
         aiMemory[card.cardId].Remove(card);
-
 
         if (aiMemory[card.cardId].Count == 0)
         {
             aiMemory.Remove(card.cardId);
         }
     }
-
 
     // =========================================
     // AI CHỌN CARD ĐẦU TIÊN
@@ -402,13 +449,11 @@ public class AIGameManager : MonoBehaviour
         {
             List<Card> knownCards = pair.Value;
 
-
             // Nếu AI biết đủ 2 lá cùng hình
             if (knownCards.Count >= 2)
             {
                 Card card1 = null;
                 Card card2 = null;
-
 
                 foreach (Card card in knownCards)
                 {
@@ -434,11 +479,9 @@ public class AIGameManager : MonoBehaviour
             }
         }
 
-
         // Nếu chưa biết cặp nào → random
         return GetRandomAvailableCard();
     }
-
 
     // =========================================
     // AI CHỌN CARD THỨ HAI
@@ -467,14 +510,12 @@ public class AIGameManager : MonoBehaviour
             }
         }
 
-
         // -------------------------------------
         // Chưa biết card còn lại → random
         // -------------------------------------
 
         return GetRandomAvailableCard(firstCard);
     }
-
 
     // =========================================
     // RANDOM CARD
@@ -492,16 +533,13 @@ public class AIGameManager : MonoBehaviour
             }
         }
 
-
         if (availableCards.Count == 0)
             return null;
-
 
         int randomIndex = Random.Range(0, availableCards.Count);
 
         return availableCards[randomIndex];
     }
-
 
     private Card GetRandomAvailableCard(Card excludeCard)
     {
@@ -517,16 +555,13 @@ public class AIGameManager : MonoBehaviour
             }
         }
 
-
         if (availableCards.Count == 0)
             return null;
-
 
         int randomIndex = Random.Range(0, availableCards.Count);
 
         return availableCards[randomIndex];
     }
-
 
     // =========================================
     // UPDATE SCORE
@@ -539,7 +574,6 @@ public class AIGameManager : MonoBehaviour
         aiScoreText.text = aiScore.ToString();
     }
 
-
     // =========================================
     // GAME OVER
     // =========================================
@@ -549,5 +583,44 @@ public class AIGameManager : MonoBehaviour
         Debug.Log("GAME OVER!");
 
         gameOverManager.ShowResult(playerScore, aiScore);
+    }
+
+    private IEnumerator CheckSabotage()
+    {
+        if (sabotageTriggered)
+            yield break;
+
+        // pairCount = 25
+        // 50 card → khi 13 cặp đã match thì đạt >= 50% số card
+        int sabotageThreshold =
+            Mathf.CeilToInt(pairCount / 2f);
+
+        if (matchedPairs < sabotageThreshold)
+            yield break;
+
+        sabotageTriggered = true;
+
+        Debug.Log("50% CARDS MATCHED - SABOTAGE NPC!");
+
+        if (sabotageNPC != null)
+        {
+            isChecking = true;
+
+            yield return StartCoroutine(sabotageNPC.Activate(cards));
+
+            ClearAIMemoryAfterSabotage();
+            isChecking = false;
+        }
+        else
+        {
+            ClearAIMemoryAfterSabotage();
+        }
+    }
+    
+    private void ClearAIMemoryAfterSabotage()
+    {
+        aiMemory.Clear();
+
+        Debug.Log("AI MEMORY CLEARED!");
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -87,5 +88,35 @@ public class Card : MonoBehaviour
     public bool IsMatched()
     {
         return isMatched;
+    }
+
+    // =========================================
+    // NPC HELPER - CARD SHAKE
+    // =========================================
+
+    public IEnumerator Shake(float duration = 0.45f, float strength = 12f)
+    {
+        RectTransform rect = GetComponent<RectTransform>();
+
+        if (rect == null)
+            yield break;
+
+        Vector2 originalPosition = rect.anchoredPosition;
+
+        float timer = 0f;
+
+        while (timer < duration)
+        {
+            float x = Random.Range(-strength, strength);
+            float y = Random.Range(-strength, strength);
+
+            rect.anchoredPosition = originalPosition + new Vector2(x, y);
+
+            timer += Time.deltaTime;
+
+            yield return null;
+        }
+
+        rect.anchoredPosition = originalPosition;
     }
 }
