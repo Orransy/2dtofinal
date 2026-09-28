@@ -25,16 +25,11 @@ public class Card : MonoBehaviour
     {
         cardId = id;
 
-        // Gán hình cho mặt trước
         frontImage.sprite = sprite;
 
-        // Ban đầu úp thẻ
         ShowBack();
 
-        // Xóa listener cũ
         button.onClick.RemoveAllListeners();
-
-        // Thêm sự kiện click
         button.onClick.AddListener(OnCardClicked);
     }
 
@@ -43,7 +38,18 @@ public class Card : MonoBehaviour
         if (isFlipped || isMatched)
             return;
 
-        AIGameManager.Instance.CardClicked(this);
+        // Nếu đang ở Normal Mode
+        if (NormalGameManager.Instance != null)
+        {
+            NormalGameManager.Instance.CardClicked(this);
+            return;
+        }
+
+        // Nếu đang ở AI Mode
+        if (AIGameManager.Instance != null)
+        {
+            AIGameManager.Instance.CardClicked(this);
+        }
     }
 
     public void ShowBack()

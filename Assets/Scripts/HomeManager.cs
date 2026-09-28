@@ -12,4 +12,11 @@ public class HomeManager : MonoBehaviour
     {
         SceneManager.LoadScene("AIGameScene");
     }
+
+    public void GoToSettings()
+    {
+        SceneManager.LoadScene("SettingsScene",
+            LoadSceneMode.Additive
+        );
+    }
 }

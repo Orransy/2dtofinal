@@ -29,7 +29,9 @@ public class PauseManager : MonoBehaviour
     {
         Time.timeScale = 1f;
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(
+            SceneManager.GetActiveScene().name
+        );
     }
 
     public void GoHome()
@@ -37,5 +39,23 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = 1f;
 
         SceneManager.LoadScene("HomeScene");
+    }
+
+    public void GoToLevelMenu()
+    {
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene("NormalGameScene");
+    }
+
+    public void GoToSettings()
+    {
+        // Giữ nguyên scene hiện tại
+        // và mở Settings lên trên
+        Time.timeScale = 0f;
+
+        SceneManager.LoadScene("SettingsScene",
+            LoadSceneMode.Additive
+        );
     }
 }
