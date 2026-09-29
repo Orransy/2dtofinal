@@ -8,7 +8,20 @@ public class GameOverManager : MonoBehaviour
 
     public TMP_Text resultTitle;
 
-    public ParticleSystem[] winFireworks;
+    [Header("Effect Groups")]
+    public GameObject gameOverEffects;
+    public GameObject winEffects;
+
+    [Header("Effect Animators")]
+    public Animator[] gameOverAnimators;
+    public Animator[] winAnimators;
+
+    private void Start()
+    {
+        // Khi bắt đầu scene, ẩn cả 2 loại effect
+        gameOverEffects.SetActive(false);
+        winEffects.SetActive(false);
+    }
 
     public void ShowResult(int playerScore, int aiScore)
     {
@@ -22,15 +35,19 @@ public class GameOverManager : MonoBehaviour
             {
                 AudioManager.Instance.PlayWinSound();
             }
+
+            ShowWinEffects();
         }
         else if (aiScore > playerScore)
         {
-            resultTitle.text = "ROBOT WIN!";
+            resultTitle.text = "YOU LOSE!";
 
             if (AudioManager.Instance != null)
             {
                 AudioManager.Instance.PlayGameOverSound();
             }
+
+            ShowGameOverEffects();
         }
         else
         {
@@ -41,7 +58,9 @@ public class GameOverManager : MonoBehaviour
     public void PlayAgain()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(
+            SceneManager.GetActiveScene().name
+        );
     }
 
     public void GoHome()
@@ -58,7 +77,8 @@ public class GameOverManager : MonoBehaviour
 
     public void GoToSettings()
     {
-        SceneManager.LoadScene("SettingsScene",
+        SceneManager.LoadScene(
+            "SettingsScene",
             LoadSceneMode.Additive
         );
     }
@@ -74,18 +94,7 @@ public class GameOverManager : MonoBehaviour
             AudioManager.Instance.PlayWinSound();
         }
 
-        Debug.Log("SHOW WIN - FIREWORKS");
-
-        if (winFireworks != null)
-        {
-            foreach (ParticleSystem fireworks in winFireworks)
-            {
-                if (fireworks != null)
-                {
-                    fireworks.Play();
-                }
-            }
-        }
+        ShowWinEffects();
     }
 
     public void ShowGameOver()
@@ -97,6 +106,54 @@ public class GameOverManager : MonoBehaviour
         if (AudioManager.Instance != null)
         {
             AudioManager.Instance.PlayGameOverSound();
+        }
+
+        ShowGameOverEffects();
+    }
+
+    private void ShowWinEffects()
+    {
+        // Tắt Game Over
+        gameOverEffects.SetActive(false);
+
+        // Bật Win
+        winEffects.SetActive(true);
+
+        // Chạy toàn bộ Win Animator
+        if (winAnimators != null)
+        {
+            foreach (Animator animator in winAnimators)
+            {
+                if (animator != null)
+                {
+                    animator.Rebind();
+                    animator.Update(0f);
+                    animator.Play("WinEffect", 0, 0f);
+                }
+            }
+        }
+    }
+
+    private void ShowGameOverEffects()
+    {
+        // Tắt Win
+        winEffects.SetActive(false);
+
+        // Bật Game Over
+        gameOverEffects.SetActive(true);
+
+        // Chạy toàn bộ Game Over Animator
+        if (gameOverAnimators != null)
+        {
+            foreach (Animator animator in gameOverAnimators)
+            {
+                if (animator != null)
+                {
+                    animator.Rebind();
+                    animator.Update(0f);
+                    animator.Play("GameOverEffect", 0, 0f);
+                }
+            }
         }
     }
 }

@@ -1,0 +1,598 @@
+fileFormatVersion: 2
+guid: 0b53f2fd83939f046847d26fb0df0860
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3523689223813780663
+    second: ToonExplosion31_0
+  - first:
+      213: -1460301317228188278
+    second: ToonExplosion31_1
+  - first:
+      213: 6877205822469283003
+    second: ToonExplosion31_2
+  - first:
+      213: -1009319805349250245
+    second: ToonExplosion31_3
+  - first:
+      213: -5515973994253292470
+    second: ToonExplosion31_4
+  - first:
+      213: 2717212292031478919
+    second: ToonExplosion31_5
+  - first:
+      213: 5001921538010823025
+    second: ToonExplosion31_6
+  - first:
+      213: 3763056940866886684
+    second: ToonExplosion31_7
+  - first:
+      213: 7537987647268550966
+    second: ToonExplosion31_8
+  - first:
+      213: -8308048530323506151
+    second: ToonExplosion31_9
+  - first:
+      213: -2019838263036584299
+    second: ToonExplosion31_10
+  - first:
+      213: 7674553524754828984
+    second: ToonExplosion31_11
+  - first:
+      213: -2588330877235331238
+    second: ToonExplosion31_12
+  - first:
+      213: -1587719663372511913
+    second: ToonExplosion31_13
+  - first:
+      213: 5902244316557020403
+    second: ToonExplosion31_14
+  - first:
+      213: -3091537642575776211
+    second: ToonExplosion31_15
+  - first:
+      213: 2306689818138556365
+    second: ToonExplosion31_16
+  - first:
+      213: 3199060600665759513
+    second: ToonExplosion31_17
+  - first:
+      213: -9082151346172039461
+    second: ToonExplosion31_18
+  - first:
+      213: 6969063609026147465
+    second: ToonExplosion31_19
+  - first:
+      213: 1556876586227738196
+    second: ToonExplosion31_20
+  - first:
+      213: -8562747191688209277
+    second: ToonExplosion31_21
+  - first:
+      213: -2493160549962049105
+    second: ToonExplosion31_22
+  - first:
+      213: -1127557360202605946
+    second: ToonExplosion31_23
+  - first:
+      213: -5943426703343926127
+    second: ToonExplosion31_24
+  - first:
+      213: -4190430044519276084
+    second: ToonExplosion31_25
+  - first:
+      213: 4065452420583571106
+    second: ToonExplosion31_26
+  - first:
+      213: 3233679759533244205
+    second: ToonExplosion31_27
+  - first:
+      213: -9036570728771263369
+    second: ToonExplosion31_28
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ToonExplosion31_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b4da440ea8a6e030800000000000000
+      internalID: 3523689223813780663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonExplosion31_1
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8d249160b7fbbbe0800000000000000
+      internalID: -1460301317228188278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonExplosion31_2
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbc978f224eb07f50800000000000000
+      internalID: 6877205822469283003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonExplosion31_3
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3b34611cfc2ef1f0800000000000000
+      internalID: -1009319805349250245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonExplosion31_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4c6d3a80e25373b0800000000000000
+      internalID: -5515973994253292470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonExplosion31_5
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78c7cd5ee2a75b520800000000000000
+      internalID: 2717212292031478919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonExplosion31_6
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 179b28333256a6540800000000000000
+      internalID: 5001921538010823025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonExplosion31_7
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1c50f5a950193430800000000000000
+      internalID: 3763056940866886684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonExplosion31_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63979b4c3df4c9860800000000000000
+      internalID: 7537987647268550966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonExplosion31_9
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91c7c5d21e1e3bc80800000000000000
+      internalID: -8308048530323506151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonExplosion31_10
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59e56f32dc718f3e0800000000000000
+      internalID: -2019838263036584299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonExplosion31_11
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8becbbce4cd718a60800000000000000
+      internalID: 7674553524754828984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonExplosion31_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5f763dd7c6641cd0800000000000000
+      internalID: -2588330877235331238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonExplosion31_13
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75557c5d06947f9e0800000000000000
+      internalID: -1587719663372511913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonExplosion31_14
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3fc03f93febf8e150800000000000000
+      internalID: 5902244316557020403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToonExplosion31_15
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d26b58cc4e6a815d0800000000000000
+      internalID: -3091537642575776211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5d41ace6fe4161d4d93803bafc9bf6b3
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      ToonExplosion31_0: 3523689223813780663
+      ToonExplosion31_1: -1460301317228188278
+      ToonExplosion31_10: -2019838263036584299
+      ToonExplosion31_11: 7674553524754828984
+      ToonExplosion31_12: -2588330877235331238
+      ToonExplosion31_13: -1587719663372511913
+      ToonExplosion31_14: 5902244316557020403
+      ToonExplosion31_15: -3091537642575776211
+      ToonExplosion31_16: 2306689818138556365
+      ToonExplosion31_17: 3199060600665759513
+      ToonExplosion31_18: -9082151346172039461
+      ToonExplosion31_19: 6969063609026147465
+      ToonExplosion31_2: 6877205822469283003
+      ToonExplosion31_20: 1556876586227738196
+      ToonExplosion31_21: -8562747191688209277
+      ToonExplosion31_22: -2493160549962049105
+      ToonExplosion31_23: -1127557360202605946
+      ToonExplosion31_24: -5943426703343926127
+      ToonExplosion31_25: -4190430044519276084
+      ToonExplosion31_26: 4065452420583571106
+      ToonExplosion31_27: 3233679759533244205
+      ToonExplosion31_28: -9036570728771263369
+      ToonExplosion31_3: -1009319805349250245
+      ToonExplosion31_4: -5515973994253292470
+      ToonExplosion31_5: 2717212292031478919
+      ToonExplosion31_6: 5001921538010823025
+      ToonExplosion31_7: 3763056940866886684
+      ToonExplosion31_8: 7537987647268550966
+      ToonExplosion31_9: -8308048530323506151
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
