@@ -91,4 +91,25 @@ public class SettingsManager : MonoBehaviour
 
         SceneManager.UnloadSceneAsync("SettingsScene");
     }
+
+    public void ResetProgress()
+    {
+        // Reset level đã hoàn thành
+        int maxLevel = 3;
+
+        for (int i = 1; i <= maxLevel; i++)
+        {
+            PlayerPrefs.DeleteKey("LevelCompleted_" + i);
+        }
+
+        // Reset level đang chọn
+        PlayerPrefs.DeleteKey("SelectedLevel");
+
+        PlayerPrefs.Save();
+
+        Debug.Log("Progress đã được reset!");
+
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("HomeScene");
+    }
 }
