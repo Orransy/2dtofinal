@@ -20,6 +20,9 @@ public class NormalGameManager : MonoBehaviour
     [Header("Card Images")]
     public Sprite[] cardSprites;
 
+    [Header("Boom")]
+    public Sprite boomSprite;
+
     [Header("UI Containers")]
     public GameObject moveContainer;
     public GameObject timeContainer;
@@ -116,14 +119,31 @@ public class NormalGameManager : MonoBehaviour
         {
             Card newCard = Instantiate(cardPrefab, cardContainer);
 
-            newCard.Setup(id, cardSprites[id]);
+            newCard.Setup(id, cardSprites[id], false);
 
             cards.Add(newCard);
         }
 
+        // Tạo Boom
+        if (currentConfig.hasBoom)
+        {
+            for (int i = 0; i < currentConfig.boomCount; i++)
+            {
+                Card boomCard = Instantiate(cardPrefab, cardContainer);
+
+                boomCard.Setup(-1, boomSprite, true);
+
+                cards.Add(boomCard);
+            }
+        }
+
+        // Trộn toàn bộ card lần đầu
+        ShuffleCardsInContainer();
+
         Debug.Log(
-            "Đã tạo " + cards.Count +
-            " cards, chia thành " + totalGroups + " nhóm."
+            "Đã tạo " + cards.Count + " cards. Card thường: " +
+            currentConfig.cardCount + " | Boom: " +
+            (currentConfig.hasBoom ? currentConfig.boomCount : 0)
         );
     }
 
@@ -153,6 +173,13 @@ public class NormalGameManager : MonoBehaviour
         if (card.IsFlipped())
             return;
 
+        // BOOM
+        if (card.IsBoom())
+        {
+            StartCoroutine(ActivateBoomRoutine(card));
+            return;
+        }
+
         card.ShowFront();
 
         selectedCards.Add(card);
@@ -161,6 +188,132 @@ public class NormalGameManager : MonoBehaviour
         if (selectedCards.Count >= currentConfig.cardsPerMatch)
         {
             StartCoroutine(CheckMatch());
+        }
+    }
+
+    private IEnumerator ActivateBoomRoutine(Card boomCard)
+    {
+        isChecking = true; // Khóa click trong lúc xử lý
+
+        // 1. Mở mặt Boom tại vị trí vừa bấm
+        boomCard.ShowFront();
+
+        // 2. Chờ 0.8s để người chơi nhìn rõ mặt Boom
+        yield return new WaitForSeconds(0.8f);
+
+        // 3. Úp LẠI các thẻ thường chọn dở trong lượt này (CHỈ úp thẻ thường CHƯA MATCH)
+        foreach (Card card in selectedCards)
+        {
+            if (card != null && !card.IsMatched() && !card.IsBoom() && card != boomCard)
+            {
+                card.ShowBack();
+            }
+        }
+        selectedCards.Clear();
+
+        // LƯU Ý: KHÔNG gọi boomCard.ShowBack() nữa -> Thẻ Boom giữ nguyên mặt ngửa vĩnh viễn
+
+        yield return new WaitForSeconds(0.2f);
+
+        // 4. Trộn CHỈ những thẻ ĐANG ÚP trên bàn chơi
+        yield return StartCoroutine(ShuffleFaceDownCardsRoutine());
+
+        // 5. Trừ lượt / Cập nhật UI trong Move Mode
+        if (currentConfig.gameMode == GameMode.Move)
+        {
+            currentMoves += 2;
+
+            if (currentMoves > currentConfig.moveLimit)
+            {
+                currentMoves = currentConfig.moveLimit;
+            }
+
+            UpdateUI();
+
+            if (currentMoves >= currentConfig.moveLimit)
+            {
+                GameOver();
+                yield break;
+            }
+        }
+
+        isChecking = false; // Mở khóa cho người chơi tiếp tục chơi
+    }
+
+    private IEnumerator ShuffleFaceDownCardsRoutine()
+    {
+        List<Card> faceDownCards = new List<Card>();
+        List<Vector3> originalPositions = new List<Vector3>();
+        List<int> validIndices = new List<int>();
+
+        // 1. Lấy danh sách thẻ đang úp và tọa độ AnchoredPosition tương ứng
+        for (int i = 0; i < cardContainer.childCount; i++)
+        {
+            Transform child = cardContainer.GetChild(i);
+            Card card = child.GetComponent<Card>();
+
+            if (card != null && !card.IsFlipped() && !card.IsMatched() && !card.IsBoom())
+            {
+                faceDownCards.Add(card);
+                validIndices.Add(i);
+                originalPositions.Add(child.GetComponent<RectTransform>().anchoredPosition);
+            }
+        }
+
+        if (faceDownCards.Count <= 1)
+            yield break;
+
+        // 2. Xáo trộn danh sách thẻ úp
+        for (int i = faceDownCards.Count - 1; i > 0; i--)
+        {
+            int randomIndex = Random.Range(0, i + 1);
+
+            Card tempCard = faceDownCards[i];
+            faceDownCards[i] = faceDownCards[randomIndex];
+            faceDownCards[randomIndex] = tempCard;
+        }
+
+        // 3. Chạy hiệu ứng di chuyển + xoay bài đến vị trí mới
+        List<Coroutine> moveCoroutines = new List<Coroutine>();
+        for (int i = 0; i < faceDownCards.Count; i++)
+        {
+            // Di chuyển thẻ đã xáo trộn đến tọa độ ban đầu của vị trí mới
+            moveCoroutines.Add(StartCoroutine(faceDownCards[i].MoveToPosition(originalPositions[i])));
+        }
+
+        // Chờ tất cả thẻ di chuyển xong
+        yield return new WaitForSeconds(0.5f);
+
+        // 4. Cập nhật SiblingIndex để GridLayoutGroup/UI quản lý chuẩn xác
+        for (int i = 0; i < faceDownCards.Count; i++)
+        {
+            faceDownCards[i].transform.SetSiblingIndex(validIndices[i]);
+        }
+    }
+
+    private void ShuffleCardsInContainer()
+    {
+        List<Transform> children = new List<Transform>();
+
+        for (int i = 0; i < cardContainer.childCount; i++)
+        {
+            children.Add(cardContainer.GetChild(i));
+        }
+
+        for (int i = 0; i < children.Count; i++)
+        {
+            int randomIndex = Random.Range(i, children.Count);
+
+            Transform temp = children[i];
+
+            children[i] = children[randomIndex];
+
+            children[randomIndex] = temp;
+        }
+
+        for (int i = 0; i < children.Count; i++)
+        {
+            children[i].SetSiblingIndex(i);
         }
     }
 

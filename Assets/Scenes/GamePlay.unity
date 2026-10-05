@@ -2889,8 +2889,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -65}
-  m_SizeDelta: {x: 1100, y: 550}
+  m_AnchoredPosition: {x: 0, y: -50}
+  m_SizeDelta: {x: 650, y: 550}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1162366358
 MonoBehaviour:
@@ -2909,12 +2909,12 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 100, y: 100}
   m_Spacing: {x: 10, y: 10}
-  m_Constraint: 1
+  m_Constraint: 0
   m_ConstraintCount: 5
 --- !u!1 &1188144052
 GameObject:
@@ -2951,7 +2951,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -320, y: 0}
+  m_AnchoredPosition: {x: -280, y: 0}
   m_SizeDelta: {x: 125, y: 131}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1188144054
@@ -3787,24 +3787,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levels:
   - levelNumber: 1
-    cardCount: 16
+    cardCount: 18
+    hasBoom: 0
+    boomCount: 0
     gameMode: 0
     moveLimit: 20
     timeLimit: 0
     cardsPerMatch: 2
   - levelNumber: 2
     cardCount: 18
-    gameMode: 1
-    moveLimit: 35
-    timeLimit: 140
+    hasBoom: 1
+    boomCount: 2
+    gameMode: 0
+    moveLimit: 30
+    timeLimit: 0
     cardsPerMatch: 2
   - levelNumber: 3
     cardCount: 18
+    hasBoom: 1
+    boomCount: 2
     gameMode: 0
-    moveLimit: 50
+    moveLimit: 40
     timeLimit: 0
     cardsPerMatch: 3
-  currentLevel: 2
+  - levelNumber: 4
+    cardCount: 16
+    hasBoom: 1
+    boomCount: 2
+    gameMode: 1
+    moveLimit: 0
+    timeLimit: 100
+    cardsPerMatch: 4
+  - levelNumber: 5
+    cardCount: 28
+    hasBoom: 1
+    boomCount: 2
+    gameMode: 1
+    moveLimit: 0
+    timeLimit: 150
+    cardsPerMatch: 4
+  currentLevel: 5
   cardPrefab: {fileID: 8765150247643234241, guid: b4db72b00040afa4c9dfe4e229f4d72c, type: 3}
   cardContainer: {fileID: 1162366357}
   cardSprites:
@@ -3818,6 +3840,7 @@ MonoBehaviour:
   - {fileID: 7356542486278701270, guid: 13dd723a25d2aac44afab29e93d8b22f, type: 3}
   - {fileID: -3011012738675364713, guid: 13dd723a25d2aac44afab29e93d8b22f, type: 3}
   - {fileID: 3560051756392310328, guid: 13dd723a25d2aac44afab29e93d8b22f, type: 3}
+  boomSprite: {fileID: 2503992082558401399, guid: 83f203dd50f84124587d2f02ae82c9e7, type: 3}
   moveContainer: {fileID: 97176374}
   timeContainer: {fileID: 1188144052}
   moveText: {fileID: 276285465}

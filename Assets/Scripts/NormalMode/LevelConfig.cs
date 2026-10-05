@@ -15,6 +15,10 @@ public class LevelConfig
     [Header("Cards")]
     public int cardCount;
 
+    [Header("Boom")]
+    public bool hasBoom;
+    public int boomCount;
+
     [Header("Game Mode")]
     public GameMode gameMode;
 

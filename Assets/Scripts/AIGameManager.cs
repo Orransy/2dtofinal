@@ -55,7 +55,6 @@ public class AIGameManager : MonoBehaviour
 
     private Turn currentTurn = Turn.Player;
 
-
     // =========================================
     // AI MEMORY
     // =========================================
@@ -66,12 +65,10 @@ public class AIGameManager : MonoBehaviour
     private Dictionary<int, List<Card>> aiMemory =
         new Dictionary<int, List<Card>>();
 
-
     private void Awake()
     {
         Instance = this;
     }
-
 
     private void Start()
     {
@@ -81,7 +78,6 @@ public class AIGameManager : MonoBehaviour
 
         turnText.text = "YOUR TURN";
     }
-
 
     // =========================================
     // CREATE CARDS
@@ -109,7 +105,6 @@ public class AIGameManager : MonoBehaviour
         }
     }
 
-
     // =========================================
     // SHUFFLE
     // =========================================
@@ -125,7 +120,6 @@ public class AIGameManager : MonoBehaviour
             list[randomIndex] = temp;
         }
     }
-
 
     // =========================================
     // PLAYER CLICK
@@ -148,7 +142,6 @@ public class AIGameManager : MonoBehaviour
         // AI nhìn thấy card này
         RememberCard(card);
 
-
         // Card đầu tiên
         if (firstCard == null)
         {
@@ -156,13 +149,11 @@ public class AIGameManager : MonoBehaviour
             return;
         }
 
-
         // Card thứ hai
         secondCard = card;
 
         StartCoroutine(CheckPlayerMatch());
     }
-
 
     // =========================================
     // CHECK PLAYER MATCH
@@ -173,7 +164,6 @@ public class AIGameManager : MonoBehaviour
         isChecking = true;
 
         yield return new WaitForSeconds(0.7f);
-
 
         // PLAYER ĐÚNG
         if (firstCard.cardId == secondCard.cardId)
@@ -198,19 +188,16 @@ public class AIGameManager : MonoBehaviour
 
             isChecking = false;
 
-
             if (matchedPairs >= pairCount)
             {
                 GameOver();
                 yield break;
             }
 
-
             // Đúng → Player tiếp tục
             currentTurn = Turn.Player;
             turnText.text = "YOUR TURN";
         }
-
 
         // PLAYER SAI
         else

@@ -16,6 +16,7 @@ public class Card : MonoBehaviour
 
     private bool isFlipped = false;
     private bool isMatched = false;
+    private bool isBoom = false;
 
     private void Awake()
     {
@@ -24,9 +25,17 @@ public class Card : MonoBehaviour
 
     public void Setup(int id, Sprite sprite)
     {
-        cardId = id;
+        Setup(id, sprite, false);
+    }
 
+    public void Setup(int id, Sprite sprite, bool boom)
+    {
+        cardId = id;
+        isBoom = boom;
         frontImage.sprite = sprite;
+
+        isFlipped = false;
+        isMatched = false;
 
         ShowBack();
 
@@ -90,6 +99,11 @@ public class Card : MonoBehaviour
         return isMatched;
     }
 
+    public bool IsBoom()
+    {
+        return isBoom;
+    }
+
     // =========================================
     // NPC HELPER - CARD SHAKE
     // =========================================
@@ -118,5 +132,50 @@ public class Card : MonoBehaviour
         }
 
         rect.anchoredPosition = originalPosition;
+    }
+
+    // =========================================
+    // SHUFFLE ANIMATION - DI CHUYỂN VÀ XOAY CARD
+    // =========================================
+
+    public IEnumerator MoveToPosition(Vector3 targetPos, float duration = 0.35f)
+    {
+        RectTransform rect = GetComponent<RectTransform>();
+        if (rect == null) yield break;
+
+        Vector3 startPos = rect.anchoredPosition;
+        Quaternion startRot = rect.localRotation;
+
+        // Tạo góc xoay nhẹ (ngẫu nhiên từ -15 đến 15 độ) để tạo hiệu ứng xáo trộn tự nhiên
+        Quaternion targetRot = Quaternion.Euler(0, 0, Random.Range(-15f, 15f));
+
+        float timer = 0f;
+        while (timer < duration)
+        {
+            timer += Time.deltaTime;
+            float progress = timer / duration;
+
+            // Dùng SmoothStep để chuyển động êm hơn
+            float smoothProgress = Mathf.SmoothStep(0f, 1f, progress);
+
+            rect.anchoredPosition = Vector3.Lerp(startPos, targetPos, smoothProgress);
+            rect.localRotation = Quaternion.Slerp(startRot, targetRot, smoothProgress);
+
+            yield return null;
+        }
+
+        rect.anchoredPosition = targetPos;
+
+        // Trả lại góc xoay thẳng chuẩn (0,0,0)
+        float resetTimer = 0f;
+        float resetDuration = 0.15f;
+        while (resetTimer < resetDuration)
+        {
+            resetTimer += Time.deltaTime;
+            rect.localRotation = Quaternion.Slerp(targetRot, Quaternion.identity, resetTimer / resetDuration);
+            yield return null;
+        }
+
+        rect.localRotation = Quaternion.identity;
     }
 }
