@@ -95,7 +95,7 @@ public class SettingsManager : MonoBehaviour
     public void ResetProgress()
     {
         // Reset level đã hoàn thành
-        int maxLevel = 3;
+        int maxLevel = 5;
 
         for (int i = 1; i <= maxLevel; i++)
         {

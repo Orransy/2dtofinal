@@ -10,7 +10,7 @@ public class AudioManager : MonoBehaviour
 
     [Header("Sound Effects")]
     public AudioSource sfxSource;
-
+    public AudioClip boomSound;
     public AudioClip winSound;
     public AudioClip gameOverSound;
 
@@ -117,5 +117,13 @@ public class AudioManager : MonoBehaviour
         }
 
         sfxSource.PlayOneShot(gameOverSound);
+    }
+
+    public void PlayBoomSound()
+    {
+        if (sfxSource != null && boomSound != null)
+        {
+            sfxSource.PlayOneShot(boomSound);
+        }
     }
 }

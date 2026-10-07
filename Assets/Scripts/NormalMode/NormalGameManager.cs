@@ -198,6 +198,11 @@ public class NormalGameManager : MonoBehaviour
         // 1. Mở mặt Boom tại vị trí vừa bấm
         boomCard.ShowFront();
 
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayBoomSound();
+        }
+
         // 2. Chờ 0.8s để người chơi nhìn rõ mặt Boom
         yield return new WaitForSeconds(0.8f);
 

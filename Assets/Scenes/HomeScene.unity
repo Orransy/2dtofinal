@@ -422,8 +422,10 @@ MonoBehaviour:
   musicSource: {fileID: 258650730}
   backgroundMusic: {fileID: 8300000, guid: 91a1ff775c7cd93418fb90c0f3b7129c, type: 3}
   sfxSource: {fileID: 258650729}
+  boomSound: {fileID: 8300000, guid: c02bae12da78f30419c79a983c2867a7, type: 3}
   winSound: {fileID: 8300000, guid: 8b343ea2058c5994482bd248e7cc2868, type: 3}
   gameOverSound: {fileID: 8300000, guid: b3a14fde89099ec47b76b4d6a4662482, type: 3}
+  winSoundVolume: 2
 --- !u!4 &258650732
 Transform:
   m_ObjectHideFlags: 0
