@@ -19,4 +19,9 @@ public class HomeManager : MonoBehaviour
             LoadSceneMode.Additive
         );
     }
+
+    public void Storyline()
+    {
+        SceneManager.LoadScene("StorylineScene");
+    }
 }

@@ -202,6 +202,13 @@ public class AIGameManager : MonoBehaviour
         // PLAYER SAI
         else
         {
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlayWrongSound();
+            }
+
+            yield return new WaitForSeconds(0.3f);
+
             firstCard.ShowBack();
             secondCard.ShowBack();
 
@@ -224,7 +231,7 @@ public class AIGameManager : MonoBehaviour
 
             // Sai → AI
             currentTurn = Turn.AI;
-            turnText.text = "AI TURN";
+            turnText.text = "ROBOT TURN";
 
             StartCoroutine(AITurn());
         }
@@ -316,7 +323,7 @@ public class AIGameManager : MonoBehaviour
 
             // Đúng → AI được chơi tiếp
             currentTurn = Turn.AI;
-            turnText.text = "AI TURN";
+            turnText.text = "ROBOT TURN";
 
             StartCoroutine(AITurn());
         }
@@ -358,6 +365,11 @@ public class AIGameManager : MonoBehaviour
 
             if (helperNPC != null)
             {
+                if (AudioManager.Instance != null)
+                {
+                    AudioManager.Instance.PlayHelperSound();
+                }
+
                 yield return StartCoroutine(
                     helperNPC.GiveHint(cards)
                 );
@@ -593,6 +605,11 @@ public class AIGameManager : MonoBehaviour
         {
             isChecking = true;
 
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySabotageSound();
+            }
+
             yield return StartCoroutine(sabotageNPC.Activate(cards));
 
             ClearAIMemoryAfterSabotage();
@@ -603,7 +620,7 @@ public class AIGameManager : MonoBehaviour
             ClearAIMemoryAfterSabotage();
         }
     }
-    
+
     private void ClearAIMemoryAfterSabotage()
     {
         aiMemory.Clear();

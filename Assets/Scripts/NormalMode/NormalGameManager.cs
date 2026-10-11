@@ -372,6 +372,11 @@ public class NormalGameManager : MonoBehaviour
         }
         else
         {
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlayWrongSound();
+            }
+
             foreach (Card card in selectedCards)
             {
                 card.ShowBack();

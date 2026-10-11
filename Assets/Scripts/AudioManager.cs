@@ -13,6 +13,9 @@ public class AudioManager : MonoBehaviour
     public AudioClip boomSound;
     public AudioClip winSound;
     public AudioClip gameOverSound;
+    public AudioClip helperSound;
+    public AudioClip sabotageSound;
+    public AudioClip wrongSound;
 
     [Header("SFX Volume")]
     [Range(0f, 2f)]
@@ -124,6 +127,30 @@ public class AudioManager : MonoBehaviour
         if (sfxSource != null && boomSound != null)
         {
             sfxSource.PlayOneShot(boomSound);
+        }
+    }
+
+    public void PlayHelperSound()
+    {
+        if (sfxSource != null && helperSound != null)
+        {
+            sfxSource.PlayOneShot(helperSound);
+        }
+    }
+
+    public void PlaySabotageSound()
+    {
+        if (sfxSource != null && sabotageSound != null)
+        {
+            sfxSource.PlayOneShot(sabotageSound);
+        }
+    }
+
+    public void PlayWrongSound()
+    {
+        if (sfxSource != null && wrongSound != null)
+        {
+            sfxSource.PlayOneShot(wrongSound);
         }
     }
 }
