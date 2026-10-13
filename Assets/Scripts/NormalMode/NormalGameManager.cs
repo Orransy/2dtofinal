@@ -27,10 +27,32 @@ public class NormalGameManager : MonoBehaviour
     public GameObject moveContainer;
     public GameObject timeContainer;
 
+    [Header("Help Buttons")]
+    public GameObject addTimeButton;
+    public GameObject addMovesButton;
+
+    public float extraTime = 10f;
+    public int extraMoves = 5;
+    private bool hasUsedAddTime = false;
+    private bool hasUsedAddMoves = false;
+
+    private int currentMoveLimit;
+
     [Header("UI Text")]
     public TMP_Text moveText;
     public TMP_Text timeText;
     public TMP_Text levelText;
+
+    [Header("Game Info Panel")]
+    public GameObject gameInfoPanel;
+    public TMP_Text titleText;
+    public TMP_Text cardCountText;
+    public TMP_Text matchText;
+    public TMP_Text modeText;
+    public TMP_Text selectText;
+    public GameObject noteBlock;
+
+    private bool gameStarted = false;
 
     [Header("Game Over")]
     public GameOverManager gameOverManager;
@@ -77,6 +99,58 @@ public class NormalGameManager : MonoBehaviour
         }
 
         currentConfig = levels[index];
+
+        gameStarted = false;
+
+        if (gameInfoPanel != null)
+            gameInfoPanel.SetActive(true);
+
+        titleText.text = "LEVEL " + currentConfig.levelNumber;
+
+        if (currentConfig.hasBoom)
+        {
+            cardCountText.text = currentConfig.cardCount.ToString()
+                + " + " + currentConfig.boomCount + "*";
+
+            if (noteBlock != null)
+                noteBlock.SetActive(true);
+        }
+        else
+        {
+            cardCountText.text = currentConfig.cardCount.ToString();
+        }
+
+        matchText.text = currentConfig.cardsPerMatch.ToString();
+
+        if (currentConfig.gameMode == GameMode.Time)
+        {
+            modeText.text = "Time:";
+            selectText.text = currentConfig.timeLimit.ToString() + "s";
+        }
+        else
+        {
+            modeText.text = "Move:";
+            selectText.text = currentConfig.moveLimit.ToString();
+        }
+
+        currentMoveLimit = currentConfig.moveLimit;
+
+        if (addTimeButton != null)
+        {
+            addTimeButton.SetActive(
+                currentConfig.gameMode == GameMode.Time
+            );
+        }
+
+        if (addMovesButton != null)
+        {
+            addMovesButton.SetActive(
+                currentConfig.gameMode == GameMode.Move
+            );
+        }
+
+        hasUsedAddTime = false;
+        hasUsedAddMoves = false;
 
         currentMoves = 0;
         currentTime = currentConfig.timeLimit;
@@ -164,6 +238,9 @@ public class NormalGameManager : MonoBehaviour
         if (gameFinished)
             return;
 
+        if (!gameStarted)
+            return;
+
         if (isChecking)
             return;
 
@@ -228,14 +305,14 @@ public class NormalGameManager : MonoBehaviour
         {
             currentMoves += 2;
 
-            if (currentMoves > currentConfig.moveLimit)
+            if (currentMoves > currentMoveLimit)
             {
-                currentMoves = currentConfig.moveLimit;
+                currentMoves = currentMoveLimit;
             }
 
             UpdateUI();
 
-            if (currentMoves >= currentConfig.moveLimit)
+            if (currentMoves >= currentMoveLimit)
             {
                 GameOver();
                 yield break;
@@ -403,11 +480,11 @@ public class NormalGameManager : MonoBehaviour
                 "Move: " +
                 currentMoves +
                 " / " +
-                currentConfig.moveLimit
+                currentMoveLimit
             );
 
             // Hết lượt sau khi lượt cuối đã hoàn thành
-            if (currentMoves >= currentConfig.moveLimit)
+            if (currentMoves >= currentMoveLimit)
             {
                 GameOver();
                 yield break;
@@ -420,6 +497,9 @@ public class NormalGameManager : MonoBehaviour
     private void Update()
     {
         if (gameFinished)
+            return;
+
+        if (!gameStarted)
             return;
 
         if (currentConfig == null)
@@ -470,7 +550,7 @@ public class NormalGameManager : MonoBehaviour
             timeContainer.SetActive(false);
 
             int movesRemaining =
-                currentConfig.moveLimit - currentMoves;
+                currentMoveLimit - currentMoves;
 
             if (movesRemaining < 0)
                 movesRemaining = 0;
@@ -535,5 +615,51 @@ public class NormalGameManager : MonoBehaviour
         Debug.Log("GAME OVER!");
 
         gameOverManager.ShowGameOver();
+    }
+
+    public void StartGame()
+    {
+        if (gameStarted || gameFinished)
+            return;
+
+        gameStarted = true;
+
+        if (gameInfoPanel != null)
+            gameInfoPanel.SetActive(false);
+
+        if (noteBlock != null)
+            noteBlock.SetActive(false);
+    }
+
+    public void AddTime()
+    {
+        if (!gameStarted || gameFinished || hasUsedAddTime)
+            return;
+
+        if (currentConfig.gameMode != GameMode.Time)
+            return;
+
+        hasUsedAddTime = true;
+        currentTime += extraTime;
+
+        addTimeButton.SetActive(false);
+
+        UpdateUI();
+    }
+
+    public void AddMoves()
+    {
+        if (!gameStarted || gameFinished || hasUsedAddMoves)
+            return;
+
+        if (currentConfig.gameMode != GameMode.Move)
+            return;
+
+        hasUsedAddMoves = true;
+        currentMoveLimit += extraMoves;
+
+        addMovesButton.SetActive(false);
+
+        UpdateUI();
     }
 }
